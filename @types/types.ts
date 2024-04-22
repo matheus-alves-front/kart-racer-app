@@ -1,4 +1,4 @@
-export type RacerProfileType = {
+export interface RacerProfileType {
   id: string,
   name: string,
   birthDate: string,
@@ -9,7 +9,7 @@ export type RacerProfileType = {
   trackRecords: BestTimesType[]
 }
 
-export type TrackType = {
+export interface TrackType {
   id: string,
   name: string,
   address: {
@@ -28,7 +28,7 @@ export type TrackType = {
   events: []
 }
 
-export type RacesType = {
+export interface RacesType {
   id: string,
   date: string,
   time: string,
@@ -43,7 +43,7 @@ export type RacesType = {
   result: any
 }
 
-export type BestTimesType = {
+export interface BestTimesType {
   id: string,
   racer: RacerProfileType,
   bestTime: string,

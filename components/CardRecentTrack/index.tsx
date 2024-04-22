@@ -6,10 +6,10 @@ import { TrackType } from "@/@types/types"
 const trackImage = require('../../assets/images/track-image.png')
 
 export const CardRecentTrack = ({
-  name,
-  categories,
-  address
-}: TrackType) => {
+  track
+}: {
+  track: TrackType
+}) => {
   return (
     <View style={styles.cardOverflow}>
       <BlurView intensity={20} style={styles.card}>
@@ -18,12 +18,12 @@ export const CardRecentTrack = ({
           style={styles.image}
         />
         <View>
-          <Text style={TextsStyles.h4}>{name}</Text>
+          <Text style={TextsStyles.h4}>{track.name}</Text>
           <Text style={TextsStyles.p}>
             Categorias: 
-            {categories.map((item) => (item))}
+            {track.categories.map((item) => (item))}
           </Text>
-          <Text style={TextsStyles.p}>{address.city} - {address.state}</Text>
+          <Text style={TextsStyles.p}>{track.address.city} - {track.address.state}</Text>
         </View>
       </BlurView>
     </View>

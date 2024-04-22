@@ -2,20 +2,15 @@ import { BlurView } from "expo-blur"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
 import iconSet from "@expo/vector-icons/build/Fontisto"
+import { TrackType } from "@/@types/types"
 
 const trackImage = require('../../assets/images/track-image.png')
 const arrowIcon = require('../../assets/images/icons/arrow-right-icon.png')
 
 export const CardTrack = ({
-  name,
-  categories,
-  city,
-  date
+  track
 }: {
-  name: string,
-  categories: string[],
-  date: string,
-  city: string
+  track: TrackType
 }) => {
   return (
     <View style={styles.cardOverflow}>
@@ -25,12 +20,12 @@ export const CardTrack = ({
           style={styles.image}
         />
         <View style={styles.textGroup}>
-          <Text style={TextsStyles.h4}>{name}</Text>
+          <Text style={TextsStyles.h4}>{track.name}</Text>
           <Text style={TextsStyles.p}>
             Categorias: 
-            {categories.map((item) => (`${item} `))}
+            {track.categories.map((item) => (`${item} `))}
           </Text>
-          <Text style={TextsStyles.p}>{city}</Text>
+          <Text style={TextsStyles.p}>{track.address.city}</Text>
         </View>
         <TouchableOpacity 
           style={[

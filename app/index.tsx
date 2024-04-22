@@ -3,21 +3,7 @@ import { CardTrack } from "@/components/CardTrack";
 import { TextsStyles } from "@/components/styles/theme-components";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Header } from "@/components/Header";
-
-const RecentTracks = [
-  {
-    name: 'Granja Viana',
-    city: 'São Paulo - SP',
-    categories: ['13hp', '18hp'],
-    date: '30/03/2000'
-  },
-  {
-    name: 'Mogi Kart',
-    city: 'Mogi das Cruzes - SP',
-    categories: ['13hp', '18hp'],
-    date: '30/03/2000'
-  },
-]
+import { TracksMock } from "@/@types/mock";
 
 export default function HomePage() {
   return (
@@ -25,25 +11,19 @@ export default function HomePage() {
       <Header />
       <Text style={TextsStyles.h1}>Pistas Recentes:</Text>
       <ScrollView style={styles.cardsGrid} horizontal>
-        {RecentTracks.map((item, index) => (
+        {TracksMock.map((item, index) => (
           <CardRecentTrack 
             key={index}
-            categories={item.categories}
-            city={item.city}
-            date={item.date}
-            name={item.name}
+            track={item}
           />
         ))}
       </ScrollView>
       <Text style={TextsStyles.h1}>Todas as Pistas</Text>
       <View style={styles.cardsGrid}>
-        {RecentTracks.map((item, index) => (
+        {TracksMock.map((item, index) => (
           <CardTrack
             key={index}
-            categories={item.categories}
-            city={item.city}
-            date={item.date}
-            name={item.name}
+            track={item}
           />
         ))}
       </View>
