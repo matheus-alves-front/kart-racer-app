@@ -40,7 +40,7 @@ export interface RacesType {
   racersRegistered: RacerProfileType[],
   racerHost: RacerProfileType,
   isReserved: boolean,
-  result: any
+  result: null
 }
 
 export interface BestTimesType {

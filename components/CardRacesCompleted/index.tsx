@@ -1,14 +1,14 @@
 import { BlurView } from "expo-blur"
 import { Image, StyleSheet, Text, View } from "react-native"
 import { TextsStyles } from "../styles/theme-components"
-import { TrackType } from "@/@types/types"
+import { RacesType, TrackType } from "@/@types/types"
 
 const trackImage = require('../../assets/images/track-image.png')
 
-export const CardRecentTrack = ({
-  track
+export const CardRacesCompleted = ({
+  race
 }: {
-  track: TrackType
+  race: RacesType
 }) => {
   return (
     <View style={styles.cardOverflow}>
@@ -18,12 +18,12 @@ export const CardRecentTrack = ({
           style={styles.image}
         />
         <View>
-          <Text style={TextsStyles.h4}>{track.name}</Text>
+          <Text style={TextsStyles.h4}>{race.track.name}</Text>
           <Text style={TextsStyles.p}>
             Categorias: 
-            {track.categories.map((item) => (item))}
+            {race.track.categories.map((item) => (item))}
           </Text>
-          <Text style={TextsStyles.p}>{track.address.city} - {track.address.state}</Text>
+          <Text style={TextsStyles.p}>{race.date}</Text>
         </View>
       </BlurView>
     </View>

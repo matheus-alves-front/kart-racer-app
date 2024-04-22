@@ -2,13 +2,14 @@ import { CardRecentTrack } from "@/components/CardRecentTrack";
 import { CardTrack } from "@/components/CardTrack";
 import { TextsStyles } from "@/components/styles/theme-components";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { Header } from "@/components/Header";
+import { HeaderHome } from "@/components/HeaderHome";
+
 import { TracksMock } from "@/@types/mock";
 
 export default function HomePage() {
   return (
     <ScrollView>
-      <Header />
+      <HeaderHome />
       <Text style={TextsStyles.h1}>Pistas Recentes:</Text>
       <ScrollView style={styles.cardsGrid} horizontal>
         {TracksMock.map((item, index) => (

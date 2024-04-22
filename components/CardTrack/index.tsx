@@ -1,7 +1,6 @@
 import { BlurView } from "expo-blur"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
-import iconSet from "@expo/vector-icons/build/Fontisto"
 import { TrackType } from "@/@types/types"
 
 const trackImage = require('../../assets/images/track-image.png')
@@ -45,6 +44,7 @@ export const CardTrack = ({
 
 const styles = StyleSheet.create({
   card: {
+    flex: 1,
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'center',
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 0,
     paddingVertical: 8,
-    paddingBottom: 12,
   },
   cardOverflow: {
+    padding: 0,
     borderRadius: 20,
     overflow: 'hidden'
   },
@@ -72,5 +72,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 20,
+    paddingHorizontal: 16,
+    margin: 0,
   }
 })

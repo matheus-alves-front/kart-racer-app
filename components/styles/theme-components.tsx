@@ -27,7 +27,7 @@ export const TextsStyles = StyleSheet.create({
     fontFamily: 'Michroma',
     fontSize: 20,
     color: colors.white,
-    paddingBottom: 16
+    paddingBottom: 8
   },
   h2: {
     fontFamily: 'Michroma',
