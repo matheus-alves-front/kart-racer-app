@@ -21,7 +21,7 @@ export const CardRecentTrack = ({
           <Text style={TextsStyles.h3}>{track.name}</Text>
           <Text style={TextsStyles.p}>
             Categorias: 
-            {track.categories.map((item) => (item))}
+            {track.categories?.map((item) => (item.name))}
           </Text>
           <Text style={TextsStyles.p}>{track.address.city} - {track.address.state}</Text>
         </View>

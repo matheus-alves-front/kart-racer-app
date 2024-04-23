@@ -1,51 +1,83 @@
+type AddressType = {
+  street: string
+  city:   string
+  state: string
+  zip:    string
+}
+
+type RankingType=  {
+  rankingPodiums: number
+  rankingWins:    number
+}
+
+type RaceSessions = {
+  practiceMinutes:  number
+  qualyMinutes:    number
+  raceMinutes:     number
+  raceLaps?: number
+}
+
+type RaceCategories = {
+  id: string,
+  name: string,
+  price: string,
+  equipmentPrice: string,
+  trackProfile: TrackType,
+  races: RacesType[]
+}
+
 export interface RacerProfileType {
   id: string,
   name: string,
-  birthDate: string,
   whatsapp: string,
-  ranking: string,
-  racesFinished: RacesType[],
-  racesScheduled: RacesType[],
-  trackRecords: BestTimesType[]
+  cpf?: string,
+  password: string,
+  ranking: RankingType,
+
+  tracksUnlocked: TrackType[],
+  races: RacesType[],
+  hostedRaces: RacesType[],
+  trackRecords: TrackRecords[]
 }
 
 export interface TrackType {
   id: string,
+  email: string,
   name: string,
-  address: {
-    city: string,
-    state: string
-  },
+  availabilityStart: string,
+  availabilityEnd: string,
+  raceIntervals: string,
+  address: AddressType,
   addressGoogleURL: string,
   whatsapp: string,
-  email: string,
   website: string,
-
-  categories: string[],
   trackModes: string[],
-  races: RacesType[],
-  bestTimes: BestTimesType[],
-  events: []
+  
+  racerProfiles: RacerProfileType[],
+  categories: RaceCategories[],
+  trackRecords: TrackRecords[],
+  races: RacesType[]
 }
 
 export interface RacesType {
   id: string,
   date: string,
   time: string,
+  trackMode?: string,
+  sessions: RaceSessions,
+  isFinished: boolean,
+  isScheduled: boolean,
+
+  category: RaceCategories,
   track: TrackType,
-  category: string,
-  trackMode: string,
-  price: string,
-  equipmentPrice: string,
-  racersRegistered: RacerProfileType[],
   racerHost: RacerProfileType,
-  isReserved: boolean,
-  result: null
+  racersProfiles: RacerProfileType[]
 }
 
-export interface BestTimesType {
+export interface TrackRecords {
   id: string,
-  racer: RacerProfileType,
-  bestTime: string,
+  time: number,
+
   track: TrackType,
+  racerProfile: RacerProfileType
 }

@@ -33,7 +33,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
     "stitches-native": "^0.4.0",
-    "react-native-pager-view": "6.2.3"
+    "react-native-pager-view": "6.2.3",
+    "expo-constants": "~15.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
