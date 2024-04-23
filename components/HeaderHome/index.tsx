@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     paddingVertical: 36,
+    paddingTop: 40
   },
   button: {
     borderRadius: 500,

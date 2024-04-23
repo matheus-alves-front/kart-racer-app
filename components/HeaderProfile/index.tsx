@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from "react-native"
 import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
-import { Link, useRouter } from "expo-router"
+import { useRouter } from "expo-router"
 
 const profileImage = require('../../assets/images/profile-icon.png')
 

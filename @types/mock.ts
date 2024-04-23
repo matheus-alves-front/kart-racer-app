@@ -55,17 +55,16 @@ export const TracksMock: TrackType[] = [
 export const RacesMock: RacesType[] = [
   {
     id: '1',
-    category: TracksMock[0].categories[0],
     date: '30/03/2000',
+    time: '15h-16h',
     equipmentPrice: '90',
     price: '80',
     isReserved: true,
     racerHost: RacerProfilesMock[0],
-    racersRegistered: [],
-    result: null,
-    time: '15h-16h',
+    racersRegistered: RacerProfilesMock,
+    category: TracksMock[0].categories[0],
     track: TracksMock[0],
     trackMode: 'Track 1',
-
+    result: null,
   }
 ]
