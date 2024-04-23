@@ -3,12 +3,26 @@ import { HeaderProfile } from "@/components/HeaderProfile";
 import { ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 import { ButtonsStyle, TextsStyles } from "@/components/styles/theme-components";
 import { RacesMock } from "@/@types/mock";
-import { TableRow } from "@/components/TableRow";
+import { useState } from "react";
+
+const Tabs = [
+  {
+    value: 'racersRegistered',
+    label: 'Pilotos'
+  },
+
+  {
+    value: 'result',
+    label: 'Resultado'
+  }
+]
 
 export default function RaceIdPage() {
   const { raceId } = useLocalSearchParams();
 
   const race = RacesMock.find((item) => item.id === raceId)
+
+  const [tabActive, setTabActive] = useState(Tabs[0].value)
 
   return (
     <ScrollView>
@@ -21,12 +35,17 @@ export default function RaceIdPage() {
       </View>
 
       <View style={ButtonsStyle.tabsGroup}>
-        <TouchableOpacity style={ButtonsStyle.tabButton}>
-          <Text style={ButtonsStyle.tabButtonText}>Pilotos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={ButtonsStyle.tabButton}>
-          <Text style={ButtonsStyle.tabButtonText}>Resultado</Text>
-        </TouchableOpacity>
+        {Tabs.map((tab) => (
+           <TouchableOpacity 
+              style={[
+                ButtonsStyle.tabButton,
+                tabActive === tab.value ? ButtonsStyle.tabActive : {}
+              ]}
+              onPress={() => setTabActive(tab.value)}
+            >
+            <Text style={ButtonsStyle.tabButtonText}>{tab.label}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
       
     </ScrollView>

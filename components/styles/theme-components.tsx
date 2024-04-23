@@ -25,10 +25,13 @@ export const ButtonsStyle = StyleSheet.create({
     flexDirection: `row`,
   },
   tabButton: {
-    borderBottomColor: colors.black,
+    borderBottomColor: 'transparent',
     borderBottomWidth: 2,
     paddingVertical: 12,
     paddingHorizontal: 12,
+  },
+  tabActive: {
+    borderBlockColor: colors.secondary
   },
   tabButtonText: {
     color: colors.white,
