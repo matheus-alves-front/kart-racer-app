@@ -34,7 +34,6 @@ export const CardTrack = ({
         >
           <Image
             source={arrowIcon}
-            style={styles.icon}
           />
         </TouchableOpacity>
       </BlurView>
@@ -47,8 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    gap: 20,
+    alignItems: 'stretch',
     padding: 8,
     paddingBottom: 12,
   },
@@ -61,11 +59,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
   textGroup: {
-    flex: 1
-  },
-  icon: {
-    width: 30,
-    height: 20,
+    flex: 1,
+    paddingLeft: 6
   },
   button: {
     paddingVertical: 20,

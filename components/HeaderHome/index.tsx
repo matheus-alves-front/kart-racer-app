@@ -24,8 +24,8 @@ export const HeaderHome = () => {
           Suas Corridas: 12
         </Text>
       </TouchableOpacity>
-      <Link 
-        href={'/profile/'}
+      <TouchableOpacity 
+        onPress={() => router.push('/profile/')}
         style={[
           ButtonsStyle.button,
           styles.button
@@ -34,7 +34,7 @@ export const HeaderHome = () => {
         <Image 
           source={profileImage}
         />
-      </Link>
+      </TouchableOpacity>
     </View>
   )
 }

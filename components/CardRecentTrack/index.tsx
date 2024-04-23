@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 20,
     padding: 8,
+    gap: 6,
     paddingBottom: 12,
   },
   cardOverflow: {

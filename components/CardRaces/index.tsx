@@ -42,7 +42,6 @@ export const CardRaces = ({
           >
             <Image
               source={arrowIcon}
-              style={styles.icon}
             />
           </TouchableOpacity> 
         : null}
@@ -55,8 +54,8 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 20,
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
     padding: 8,
     paddingBottom: 12,
   },
@@ -70,15 +69,10 @@ const styles = StyleSheet.create({
     height: 60,
   },
   textGroup: {
-    flex: 1
-  },
-  icon: {
-    width: 30,
-    height: 20,
+    flex: 1,
+    paddingLeft: 6
   },
   button: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    margin: 0,
+    paddingHorizontal: 14
   }
 })
