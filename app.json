@@ -42,7 +42,8 @@
       },
       "eas": {
         "projectId": "ca490cf2-9851-4cb9-b078-61c5fe7fc3d4"
-      }
+      },
+      "apiURL": "https://kart-racer-api-nestjs.onrender.com"
     }
   }
 }

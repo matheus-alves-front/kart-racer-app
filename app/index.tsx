@@ -5,8 +5,30 @@ import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { HeaderHome } from "@/components/HeaderHome";
 
 import { TracksMock } from "@/@types/mock";
+import { fetchInstance } from "./utils/fetchInstances";
+import { useEffect, useState } from "react";
+import { TrackType } from "@/@types/types";
 
 export default function HomePage() {
+  const [tracks, setTracks] = useState<TrackType[]>([])
+
+  async function getTracks() {
+    const tracksResponse: TrackType[] = await fetchInstance('/track-profile', {
+      method: 'GET'
+    })
+
+    if (tracksResponse) setTracks(tracksResponse)
+  }
+
+  useEffect(() => {
+    getTracks()
+  }, [])
+
+  useEffect(() => {
+    console.log("tracks", tracks)
+
+  }, [tracks])
+
   return (
     <ScrollView>
       <HeaderHome />
@@ -21,7 +43,7 @@ export default function HomePage() {
       </ScrollView>
       <Text style={TextsStyles.h1}>Todas as Pistas</Text>
       <View style={styles.cardsGrid}>
-        {TracksMock.map((item, index) => (
+        {tracks.map((item, index) => (
           <CardTrack
             key={index}
             track={item}
