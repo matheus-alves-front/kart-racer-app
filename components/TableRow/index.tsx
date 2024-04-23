@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
   tableRow: {
     borderBottomWidth: 1,
     borderBottomColor: colors.primary,
-    
   }
 })

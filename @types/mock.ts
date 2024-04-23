@@ -66,5 +66,22 @@ export const RacesMock: RacesType[] = [
     track: TracksMock[0],
     trackMode: 'Track 1',
     result: null,
+  },
+  {
+    id: '1',
+    date: '30/03/2000',
+    time: '15h-16h',
+    equipmentPrice: '90',
+    price: '80',
+    isReserved: true,
+    racerHost: RacerProfilesMock[0],
+    racersRegistered: RacerProfilesMock,
+    category: TracksMock[0].categories[0],
+    track: TracksMock[0],
+    trackMode: 'Track 1',
+    result: null,
   }
 ]
+
+RacerProfilesMock[0].racesFinished = RacesMock
+RacerProfilesMock[0].racesScheduled = RacesMock

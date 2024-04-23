@@ -18,7 +18,7 @@ export const CardRecentTrack = ({
           style={styles.image}
         />
         <View>
-          <Text style={TextsStyles.h4}>{track.name}</Text>
+          <Text style={TextsStyles.h3}>{track.name}</Text>
           <Text style={TextsStyles.p}>
             Categorias: 
             {track.categories.map((item) => (item))}
@@ -34,10 +34,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 20,
     padding: 8,
-    paddingRight: 12,
     paddingBottom: 12,
   },
   cardOverflow: {
@@ -48,5 +47,8 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
-  }
+  },
+  textGroup: {
+    flex: 1
+  },
 })

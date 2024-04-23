@@ -19,6 +19,20 @@ export const ButtonsStyle = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 12,
     paddingBottom: 16
+  },
+  tabsGroup: {
+    paddingVertical: 20,
+    flexDirection: `row`,
+  },
+  tabButton: {
+    borderBottomColor: colors.black,
+    borderBottomWidth: 2,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
+  tabButtonText: {
+    color: colors.white,
+    fontSize: 16,
   } 
 })
 
@@ -26,18 +40,21 @@ export const TextsStyles = StyleSheet.create({
   h1: {
     fontFamily: 'Michroma',
     fontSize: 20,
+    lineHeight: 22,
     color: colors.white,
     paddingBottom: 8
   },
   h2: {
     fontFamily: 'Michroma',
     fontSize: 18,
-    color: colors.white
+    lineHeight: 20,
+    color: colors.white,
   },
   h3: {
     fontFamily: 'Michroma',
     fontSize: 16,
-    color: colors.white
+    color: colors.white,
+    lineHeight: 18
   },
   h4: {
     fontFamily: 'Michroma',
