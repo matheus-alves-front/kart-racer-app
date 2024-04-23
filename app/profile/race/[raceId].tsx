@@ -1,8 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
-import { HeaderProfile } from "@/components/HeaderProfile";
-import { ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
-import { ButtonsStyle, TextsStyles } from "@/components/styles/theme-components";
-import { RacesMock } from "@/@types/mock";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ButtonsStyle, TextsStyles, ViewStyles } from "@/components/styles/theme-components";
+import { RacerProfilesMock, RacesMock } from "@/@types/mock";
 import { useState } from "react";
 
 const Tabs = [
@@ -20,7 +19,7 @@ const Tabs = [
 export default function RaceIdPage() {
   const { raceId } = useLocalSearchParams();
 
-  const race = RacesMock.find((item) => item.id === raceId)
+  let race = RacesMock.find((item) => item.id === raceId)
 
   const [tabActive, setTabActive] = useState(Tabs[0].value)
 
@@ -37,6 +36,7 @@ export default function RaceIdPage() {
       <View style={ButtonsStyle.tabsGroup}>
         {Tabs.map((tab) => (
            <TouchableOpacity 
+              key={tab.value}
               style={[
                 ButtonsStyle.tabButton,
                 tabActive === tab.value ? ButtonsStyle.tabActive : {}
@@ -47,6 +47,73 @@ export default function RaceIdPage() {
           </TouchableOpacity>
         ))}
       </View>
+
+      {tabActive === 'racersRegistered' ? 
+        <View>
+          {RacerProfilesMock.map((racer, index) => (
+            <View style={ViewStyles.tableRow} key={racer.id}>
+              <Text style={ViewStyles.tableRowText} >{index + 1} - {racer.name}</Text>
+              <Text style={[
+                ViewStyles.tableRowText,
+                {
+                  textAlign: 'right'
+                }
+              ]} >Reservado</Text>
+            </View>
+          ))}
+        </View>
+      : null}
+      {tabActive === 'result' ? 
+        <View>
+          <Text style={TextsStyles.h3}>Sem resultados ainda...</Text>
+          <Text style={[TextsStyles.h2, { paddingTop: 30, paddingBottom: 10 }]}>Tempo Total</Text>
+          {RacerProfilesMock.map((racer, index) => (
+            <View style={ViewStyles.tableRow} key={racer.id}>
+              <Text style={ViewStyles.tableRowText} >{index + 1} - {racer.name}</Text>
+              <Text style={[
+                ViewStyles.tableRowText,
+                {
+                  marginLeft: 40,
+                }
+              ]} >24:59:12</Text>
+              <Text style={[
+                ViewStyles.tableRowText,
+                  {
+                    textAlign: 'right',
+                  }
+                ]} 
+              >
+                {index === 0 ? '15 voltas' : '+0.700'}
+              </Text>
+            </View>
+          ))}
+          <Text style={[TextsStyles.h2, { paddingTop: 30, paddingBottom: 10 }]}>Melhor Volta</Text>
+          {RacerProfilesMock.map((racer, index) => (
+            <View style={ViewStyles.tableRow} key={racer.id}>
+              <Text style={ViewStyles.tableRowText} >{index + 1} - {racer.name}</Text>
+              <Text style={[
+                ViewStyles.tableRowText,
+                {
+                  marginLeft: 40,
+                }
+              ]} >00:59:12</Text>
+              <Text style={[
+                ViewStyles.tableRowText,
+                  {
+                    textAlign: 'right',
+                  }
+                ]} 
+              >
+                {index === 0 ? 'Melhor' : '+0.700'}
+              </Text>
+            </View>
+          ))}
+          <Text style={[TextsStyles.h2, { paddingTop: 30, paddingBottom: 10 }]}>Penalizações</Text>
+
+          <Text style={[TextsStyles.h2, { paddingTop: 30, paddingBottom: 10 }]}>Observações da Prova</Text>
+
+        </View>
+      : null}
       
     </ScrollView>
   )

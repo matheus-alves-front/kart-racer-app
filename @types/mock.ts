@@ -10,6 +10,16 @@ export const RacerProfilesMock: RacerProfileType[] = [
     ranking: 'Amador',
     trackRecords: [],
     whatsapp: '9323223'
+  },
+  {
+    id: '2223',
+    birthDate: '30/03/2000',
+    name: 'Matheus',
+    racesFinished: [],
+    racesScheduled: [],
+    ranking: 'Amador',
+    trackRecords: [],
+    whatsapp: '9323223'
   }
 ]
 

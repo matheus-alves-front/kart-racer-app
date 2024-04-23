@@ -26,47 +26,63 @@ export const ButtonsStyle = StyleSheet.create({
   },
   tabButton: {
     borderBottomColor: 'transparent',
-    borderBottomWidth: 2,
+    borderBottomWidth: 4,
     paddingVertical: 12,
     paddingHorizontal: 12,
   },
   tabActive: {
-    borderBlockColor: colors.secondary
+    borderBottomColor: colors.primary
   },
   tabButtonText: {
     color: colors.white,
-    fontSize: 16,
+    fontSize: 18,
   } 
 })
 
 export const TextsStyles = StyleSheet.create({
   h1: {
     fontFamily: 'Michroma',
-    fontSize: 20,
-    lineHeight: 22,
+    fontSize: 22,
+    lineHeight: 24,
     color: colors.white,
     paddingBottom: 8
   },
   h2: {
     fontFamily: 'Michroma',
-    fontSize: 18,
-    lineHeight: 20,
+    fontSize: 20,
+    lineHeight: 22,
     color: colors.white,
   },
   h3: {
     fontFamily: 'Michroma',
-    fontSize: 16,
+    fontSize: 18,
     color: colors.white,
-    lineHeight: 18
+    lineHeight: 20
   },
   h4: {
     fontFamily: 'Michroma',
-    fontSize: 12,
+    fontSize: 14,
+    lineHeight: 16,
     color: colors.white
   },
   p: {
     fontFamily: 'Michroma',
-    fontSize: 10,
+    fontSize: 12,
     color: colors.white
+  }
+})
+
+export const ViewStyles = StyleSheet.create({
+  tableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    borderBottomColor: colors.secondary,
+    paddingVertical: 4,
+    marginBottom: 4,
+  },
+  tableRowText: {
+    color: colors.white,
+    fontSize: 18,
+    flex: 1,
   }
 })
