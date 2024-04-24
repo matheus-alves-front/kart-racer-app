@@ -1,7 +1,8 @@
 import { BlurView } from "expo-blur"
-import { Image, StyleSheet, Text, View } from "react-native"
-import { TextsStyles } from "../styles/theme-components"
+import { Image, StyleSheet, Text, Pressable, View } from "react-native"
+import { TextsStyles } from "../../constants/styles/theme-components"
 import { TrackType } from "@/@types/types"
+import { router } from "expo-router"
 
 const trackImage = require('../../assets/images/track-image.png')
 
@@ -11,7 +12,10 @@ export const CardRecentTrack = ({
   track: TrackType
 }) => {
   return (
-    <View style={styles.cardOverflow}>
+    <Pressable 
+      style={styles.cardOverflow}
+      onPress={() => router.push(`/track/${track.id}`)}
+    >
       <BlurView intensity={20} style={styles.card}>
         <Image
           source={trackImage}
@@ -26,7 +30,7 @@ export const CardRecentTrack = ({
           <Text style={TextsStyles.p}>{track.address.city} - {track.address.state}</Text>
         </View>
       </BlurView>
-    </View>
+    </Pressable>
   )
 }
 

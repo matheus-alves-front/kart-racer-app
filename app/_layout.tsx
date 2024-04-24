@@ -26,10 +26,13 @@ export default function LayoutRoot() {
       source={image}
       style={styles.bgImage}
     >  
-      <SafeAreaProvider style={{
-        paddingHorizontal: 16,
-        backgroundColor: 'transparent'
-      }}>
+      <SafeAreaProvider 
+        style={{
+          backgroundColor: 'transparent',
+          overflow: 'visible',
+          zIndex: 1
+        }}
+      >
         <Slot />
       </SafeAreaProvider>
    </ImageBackground>
@@ -40,6 +43,8 @@ const styles = StyleSheet.create({
   bgImage: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    alignItems: 'stretch',
+    overflow: 'visible',
+    zIndex: 0
   }
 })

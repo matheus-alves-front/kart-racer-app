@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ButtonsStyle, TextsStyles, ViewStyles } from "@/components/styles/theme-components";
+import { ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
+import { ButtonsStyle, TextsStyles, ViewStyles } from "@/constants/styles/theme-components";
 import { RacerProfilesMock, RacesMock } from "@/@types/mock";
 import { useState } from "react";
 
@@ -35,7 +35,7 @@ export default function RaceIdPage() {
 
       <View style={ButtonsStyle.tabsGroup}>
         {Tabs.map((tab) => (
-           <TouchableOpacity 
+           <Pressable 
               key={tab.value}
               style={[
                 ButtonsStyle.tabButton,
@@ -44,7 +44,7 @@ export default function RaceIdPage() {
               onPress={() => setTabActive(tab.value)}
             >
             <Text style={ButtonsStyle.tabButtonText}>{tab.label}</Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </View>
 

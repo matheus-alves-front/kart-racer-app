@@ -35,8 +35,8 @@ export const ButtonsStyle = StyleSheet.create({
   },
   tabButtonText: {
     color: colors.white,
-    fontSize: 18,
-  } 
+    fontSize: 14,
+  },
 })
 
 export const TextsStyles = StyleSheet.create({
@@ -68,7 +68,12 @@ export const TextsStyles = StyleSheet.create({
   p: {
     fontFamily: 'Michroma',
     fontSize: 12,
-    color: colors.white
+    color: colors.white,
+  },
+  small: {
+    fontFamily: 'Michroma',
+    fontSize: 10,
+    color: colors.white,
   }
 })
 
@@ -84,5 +89,18 @@ export const ViewStyles = StyleSheet.create({
     color: colors.white,
     fontSize: 18,
     flex: 1,
+  }
+})
+
+export const InputStyles = StyleSheet.create({
+  inputTextPrimary: {
+    backgroundColor: colors.white,
+    color: colors.gray,
+    fontSize: 14,
+    width: '100%',
+    maxWidth: 350,
+    height: 50,
+    borderRadius: 10,
+    paddingHorizontal: 10,
   }
 })

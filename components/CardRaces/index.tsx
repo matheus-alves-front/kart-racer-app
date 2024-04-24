@@ -1,6 +1,6 @@
 import { BlurView } from "expo-blur"
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
+import { Image, StyleSheet, Text, Pressable, View } from "react-native"
+import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
 import { RacesType } from "@/@types/types"
 import { router } from "expo-router"
 
@@ -15,7 +15,7 @@ export const CardRaces = ({
   withButton?: boolean
 }) => {
   return (
-    <TouchableOpacity 
+    <Pressable 
       style={styles.cardOverflow}
       onPress={() => withButton ? null : router.push(`/profile/race/${race.id}`)}
     >
@@ -33,7 +33,7 @@ export const CardRaces = ({
           <Text style={TextsStyles.p}>{race.date}</Text>
         </View>
         {withButton 
-        ? <TouchableOpacity 
+        ? <Pressable 
             onPress={() => router.push(`/profile/race/${race.id}`)}
             style={[
               ButtonsStyle.button,
@@ -43,10 +43,10 @@ export const CardRaces = ({
             <Image
               source={arrowIcon}
             />
-          </TouchableOpacity> 
+          </Pressable> 
         : null}
       </BlurView>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 

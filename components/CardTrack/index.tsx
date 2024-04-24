@@ -1,6 +1,6 @@
 import { BlurView } from "expo-blur"
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
+import { Image, StyleSheet, Text, Pressable, View } from "react-native"
+import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
 import { TrackType } from "@/@types/types"
 import { router } from "expo-router"
 
@@ -28,7 +28,7 @@ export const CardTrack = ({
           </Text>
           <Text style={TextsStyles.p}>{track.address.city}</Text>
         </View>
-        <TouchableOpacity 
+        <Pressable 
           onPress={() => router.push(`/track/${track.id}`)}
           style={[
             ButtonsStyle.button,
@@ -38,7 +38,7 @@ export const CardTrack = ({
           <Image
             source={arrowIcon}
           />
-        </TouchableOpacity>
+        </Pressable>
       </BlurView>
     </View>
   )

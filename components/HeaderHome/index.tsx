@@ -1,31 +1,34 @@
 import { 
   Text, 
-  TouchableOpacity, 
+  Pressable, 
   View,
   Image,
   StyleSheet,
 } from "react-native"
-import { ButtonsStyle } from "../styles/theme-components"
-import { Link, useRouter } from "expo-router"
+import { ButtonsStyle } from "../../constants/styles/theme-components"
+import { router } from "expo-router"
+import { onLogOut } from "@/utils/fetchInstances"
 
 const profileImage = require('../../assets/images/profile-icon.png')
 
 export const HeaderHome = () => {
-  const router = useRouter()
   return (
-    <View style={styles.header}>
-      <TouchableOpacity 
+    <View style={styles.header} >
+      <Pressable 
         style={ButtonsStyle.button}
         onPress={
-          () => router.push('/profile/')
+          () => {
+            console.log('clicou')
+            router.push('/profile/')
+          }
         }
       >
         <Text style={ButtonsStyle.buttonText}>
           Suas Corridas: 12
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => router.push('/profile/')}
+      </Pressable>
+      <Pressable 
+        onPress={onLogOut}
         style={[
           ButtonsStyle.button,
           styles.button
@@ -34,7 +37,7 @@ export const HeaderHome = () => {
         <Image 
           source={profileImage}
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   )
 }

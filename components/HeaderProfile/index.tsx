@@ -1,11 +1,11 @@
 import { 
   Text, 
-  TouchableOpacity, 
+  Pressable, 
   View,
   Image,
   StyleSheet,
 } from "react-native"
-import { ButtonsStyle, TextsStyles } from "../styles/theme-components"
+import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
 import { useRouter } from "expo-router"
 
 const profileImage = require('../../assets/images/profile-icon.png')
@@ -20,7 +20,7 @@ export const HeaderProfile = () => {
         <Text style={TextsStyles.p}>Pódios: 5, Vencidas: 2</Text>
         <Text style={TextsStyles.p}>Ranking: 10</Text>
       </View>
-      <TouchableOpacity 
+      <Pressable 
         style={[
           ButtonsStyle.button,
           styles.button
@@ -30,7 +30,7 @@ export const HeaderProfile = () => {
           source={profileImage}
           style={styles.buttonImage}
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   )
 }

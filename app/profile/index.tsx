@@ -1,4 +1,4 @@
-import { TextsStyles } from "@/components/styles/theme-components";
+import { TextsStyles } from "@/constants/styles/theme-components";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { RacesMock } from "@/@types/mock";
 import { HeaderProfile } from "@/components/HeaderProfile";

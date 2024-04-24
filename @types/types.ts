@@ -68,7 +68,7 @@ export interface RacesType {
   isFinished: boolean,
   isScheduled: boolean,
 
-  category: RaceCategories,
+  category?: RaceCategories,
   track: TrackType,
   racerHost: RacerProfileType,
   racersProfiles: RacerProfileType[]
