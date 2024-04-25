@@ -7,18 +7,24 @@ import {
 } from "react-native"
 import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
 import { useRouter } from "expo-router"
+import { RacerProfileType } from "@/@types/types"
 
 const profileImage = require('../../assets/images/profile-icon.png')
 
-export const HeaderProfile = () => {
-  const router = useRouter()
+export const HeaderProfile = ({
+  racer
+}: {
+  racer: RacerProfileType
+}) => { 
   return (
     <View style={styles.header}>
       <View>
-        <Text style={TextsStyles.h1}>Matheus Alves</Text>
-        <Text style={TextsStyles.p}>Total de Corridas: 10</Text>
-        <Text style={TextsStyles.p}>Pódios: 5, Vencidas: 2</Text>
-        <Text style={TextsStyles.p}>Ranking: 10</Text>
+        <Text style={TextsStyles.h2}>Piloto</Text>
+        <Text style={TextsStyles.h1}>{racer.name}</Text>
+        <Text style={TextsStyles.p}>Total de Corridas: {racer.races ? racer.races.length : 0}</Text>
+        <Text style={TextsStyles.p}>
+          Pódios: {racer.ranking.rankingPodiums}, Vencidas: {racer.ranking.rankingWins}
+        </Text>
       </View>
       <Pressable 
         style={[
@@ -39,7 +45,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingVertical: 36,
     paddingTop: 40,
   },

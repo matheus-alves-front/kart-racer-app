@@ -4,6 +4,8 @@ import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-componen
 import { BlurView } from "expo-blur"
 import { Theme } from "@/constants/Colors"
 import { getRaceSessions } from "@/utils/utils"
+import { fetchInstanceWithToken, getProfileStorage } from "@/utils/fetchInstances"
+import { router } from "expo-router"
 
 type ScheduleRaceCardsProps = {
   race: RacesType
@@ -31,18 +33,21 @@ export const ScheduleRaceCards = ({
           <Text style={TextsStyles.small}>Equipamentos: R${race.category?.price}</Text>
         </View>
       </BlurView>
-      <Pressable style={[
+      <Pressable 
+        style={[
           ButtonsStyle.button,
           styles.button,
           race.isScheduled ? {
             backgroundColor: colors.primary
           } : { backgroundColor: colors.secondary }
-      ]}>
+        ]}
+        onPress={() => router.push(`/race/${race.id}`)}
+      >
         <Text style={[
           ButtonsStyle.buttonText,
           styles.buttonText, 
         ]}>
-          {race.isScheduled ? 'Entrar' : 'Reservar'}
+          Ver Corrida
         </Text>
       </Pressable>
     </View>

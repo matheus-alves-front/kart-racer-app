@@ -2,14 +2,12 @@
 import { RacerProfileType } from "@/@types/types";
 import { Theme } from "@/constants/Colors";
 import { ButtonsStyle, InputStyles, TextsStyles } from "@/constants/styles/theme-components";
+import { useLoading } from "@/contexts/loadingContext";
 import { fetchInstance } from "@/utils/fetchInstances";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNDateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import {  } from "expo-image";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, TextInput, Pressable, Platform, KeyboardAvoidingView, ScrollView } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const LogoImageSrc = require('@/assets/images/kart-racer-app-logo.jpg') 
 
@@ -36,37 +34,25 @@ export default function RegisterPage() {
     }
   };
 
-
   useEffect(() => {
     setCredentials({...credentials, birthDate: dateNow.toLocaleDateString('pt-BR')});
   }, [dateNow])
 
+  const {setIsLoading} = useLoading()
+
   const registerSubmit = async () => {
+    setIsLoading(true)
     const registerResponse: RacerProfileType = await fetchInstance('/racer-profile', {
       method: 'POST',
       body: JSON.stringify(credentials)
     })
 
-    console.log('registerResponse', registerResponse)
-
-    if (registerResponse.id) {
-      const loginResponse = await fetchInstance('/racer-profile/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          whatsapp: registerResponse.whatsapp,
-          password: registerResponse.password
-        })
-      })
-
-      if (!loginResponse.token) return
-
-      try {
-        await AsyncStorage.setItem('token', loginResponse.token)
-        router.push('/')
-      } catch(err) {
-        console.log(err)
-      }
+    if (registerResponse) {
+      router.push('/')
+      return setIsLoading(false)
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -75,7 +61,7 @@ export default function RegisterPage() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
-      <ScrollView style={{flex: 1}}>
+      <ScrollView overScrollMode="auto" style={{flex: 1}}>
         <View style={styles.formView}>
           <Image
             style={styles.logo}

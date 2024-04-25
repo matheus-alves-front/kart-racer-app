@@ -4,9 +4,10 @@ import { ButtonsStyle, TextsStyles } from "@/constants/styles/theme-components";
 import { Theme } from "@/constants/Colors";
 import { fetchInstance, fetchInstanceWithToken } from "@/utils/fetchInstances";
 import { getAddressLabels } from "@/utils/utils";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, Pressable, ScrollView } from "react-native";
+import { useLoading } from "@/contexts/loadingContext";
 
 const trackImage = require("../../assets/images/track-big-image.png");
 
@@ -40,12 +41,21 @@ export default function TrackIdPage() {
   const [tabActive, setTabActive] = useState<TabsValues>(Tabs[0].value)
   const [track, setTrack] = useState<TrackType | null>(null)
 
+  const {setIsLoading} = useLoading()
+
   const getTrack = useCallback(async () => {
+    setIsLoading(true)
     const trackResponse: TrackType = await fetchInstanceWithToken(`/track-profile/${trackId}`, {
       method: 'GET'
     })
 
-    if (trackResponse) setTrack(trackResponse)
+    if (trackResponse) {
+      setTrack(trackResponse)
+      return setIsLoading(false)
+    }
+
+    router.back()
+    return setIsLoading(false)
   }, [])
 
   const [racesSchedule, setRacesSchedule] = useState<RacesType[]>([])
@@ -64,18 +74,10 @@ export default function TrackIdPage() {
     getRacesSchedule()
   }, [])
 
-  useEffect(() => {
-    console.log("racesSchedules", racesSchedule)
-
-  }, [racesSchedule])
-
   if (!track) return (
     <View>
-      <Text>Carregando...</Text>
     </View>
   )
-
- 
 
   return (
     <ScrollView>

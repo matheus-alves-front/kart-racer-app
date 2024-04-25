@@ -7,11 +7,22 @@ import {
 } from "react-native"
 import { ButtonsStyle } from "../../constants/styles/theme-components"
 import { router } from "expo-router"
-import { onLogOut } from "@/utils/fetchInstances"
+import { getProfileStorage, onLogOut } from "@/utils/fetchInstances"
+import { useCallback, useEffect, useState } from "react"
 
 const profileImage = require('../../assets/images/profile-icon.png')
 
 export const HeaderHome = () => {
+  const [profileIdState, setProfileIdState] = useState('')
+  const getProfileId = useCallback(async () => {
+    const profileId = await getProfileStorage()
+
+    if (profileId) return setProfileIdState(profileId)
+  }, [profileIdState])
+
+  useEffect(() => {
+    getProfileId()
+  }, [])
   return (
     <View style={styles.header} >
       <Pressable 
@@ -19,7 +30,7 @@ export const HeaderHome = () => {
         onPress={
           () => {
             console.log('clicou')
-            router.push('/profile/')
+            router.push(`/profile/${profileIdState}`)
           }
         }
       >

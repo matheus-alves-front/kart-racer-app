@@ -1,6 +1,6 @@
 import Constants from "expo-constants"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 
 const API_URL = Constants.expoConfig?.extra?.apiURL
 
@@ -17,6 +17,10 @@ export async function fetchInstance(
         ...params.headers
       },
     })
+
+    if (!fetchRequest.ok) return {
+      error: 'remote not ok'
+    }
 
     const fetchJson = await fetchRequest.json()
 
@@ -42,11 +46,13 @@ export async function fetchInstanceWithToken(
       },
     })
 
+    if (!fetchRequest.ok || fetchRequest.status === 403) return null
+
     const fetchJson = await fetchRequest.json()
 
     return fetchJson
   } catch(error) {
-    throw new Error(JSON.stringify(error), {});
+    throw new Error(JSON.stringify(error));
   }
 }
 
@@ -58,9 +64,14 @@ export async function getTokenStorage() {
   }
 }
 
+export async function getProfileStorage() {
+  return await AsyncStorage.getItem('profile')
+}
+
 export async function onLogOut() {
   try {
     await AsyncStorage.removeItem('token')
+    await AsyncStorage.removeItem('profile')
     return router.push('/')
   } catch(err) {
     return ''
@@ -75,6 +86,9 @@ export const onConnectAuth = async () => {
 
 export const onConnectLogin = async () => {
   const authToken = await getTokenStorage()
+  const profileId = await getProfileStorage()
 
-  if (authToken) return router.push('/home')
+  if (!authToken || !profileId) return
+
+  return router.push('/home')
 }

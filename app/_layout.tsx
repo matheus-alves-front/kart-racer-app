@@ -1,9 +1,11 @@
+import { Loader } from "@/components/Loader";
+import { LoadingContextProvider } from "@/contexts/loadingContext";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import { Text, ImageBackground, StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const image = require("../assets/images/background.png")
+const backgroundImage = require("../assets/images/background.png")
 
 export default function LayoutRoot() {
   let [fontsLoaded] = useFonts({
@@ -12,7 +14,7 @@ export default function LayoutRoot() {
 
   if (!fontsLoaded) {
     return <ImageBackground 
-      source={image}
+      source={backgroundImage}
       style={styles.bgImage}
     > 
     <View>
@@ -22,20 +24,23 @@ export default function LayoutRoot() {
   }
 
   return (
-    <ImageBackground 
-      source={image}
-      style={styles.bgImage}
-    >  
-      <SafeAreaProvider 
-        style={{
-          backgroundColor: 'transparent',
-          overflow: 'visible',
-          zIndex: 1
-        }}
-      >
-        <Slot />
-      </SafeAreaProvider>
-   </ImageBackground>
+    <LoadingContextProvider>
+      <ImageBackground 
+        source={backgroundImage}
+        style={styles.bgImage}
+      >  
+        <SafeAreaProvider 
+          style={{
+            backgroundColor: 'transparent',
+            overflow: 'visible',
+            zIndex: 1
+          }}
+        > 
+          <Loader />
+          <Slot />
+        </SafeAreaProvider>
+    </ImageBackground>
+    </LoadingContextProvider>
   )
 }
 
