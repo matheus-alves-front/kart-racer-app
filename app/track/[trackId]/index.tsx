@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useLoading } from "@/contexts/loadingContext";
 
-const trackImage = require("../../assets/images/track-big-image.png");
+const trackImage = require("../../../assets/images/track-big-image.png");
 
 type TabsValues = "about" | "scheduleRaces" | "trackRecords" | "events"
 
@@ -139,8 +139,9 @@ export default function TrackIdPage() {
           <View style={style.tabView}>
             {racesSchedule.map((race) => (
               <ScheduleRaceCards 
-                  key={race.id}
-                  race={race}
+                key={race.id}
+                race={race}
+                trackId={String(trackId)}
               />
             ))}  
           </View>

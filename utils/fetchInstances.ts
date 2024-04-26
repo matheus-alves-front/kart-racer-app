@@ -1,6 +1,6 @@
 import Constants from "expo-constants"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router, useRouter } from "expo-router";
+import { router } from "expo-router";
 
 const API_URL = Constants.expoConfig?.extra?.apiURL
 

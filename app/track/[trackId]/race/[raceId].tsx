@@ -19,17 +19,19 @@ const Tabs = [
 ]
 
 export default function RaceIdPage() {
-  const { raceId } = useLocalSearchParams();
+  const { raceId, trackId } = useLocalSearchParams();
 
   const { setIsLoading } = useLoading()
 
   const [race, setRace] = useState<RacesType | null>(null)
   const [profileId, setProfileId] = useState('')
+  const isProfileOnrace = race?.racersProfiles.find((racer) => racer.id === profileId)
 
-  const getProfileId = async () => {
+  const getProfileId = useCallback(async () => {
     const id = await getProfileStorage()
     if (id) return setProfileId(id)
-  }
+  }, [])
+
   const getRace = useCallback(async () => {
     setIsLoading(true)
     const raceResponse: RacesType = await fetchInstanceWithToken(`/race/${raceId}`, {
@@ -43,7 +45,7 @@ export default function RaceIdPage() {
 
     router.back()
     return setIsLoading(false)
-  }, [])
+  }, [raceId])
 
   const [tabActive, setTabActive] = useState(Tabs[0].value)
 
@@ -51,6 +53,44 @@ export default function RaceIdPage() {
     getRace()
     getProfileId()
   }, [])
+
+  const addProfileToRace = async (raceId: string, racerProfileId: string) => {
+    setIsLoading(true)
+    const addRacerResponse = await fetchInstanceWithToken(`/track/${trackId}/races/${raceId}/addRacer/${racerProfileId}`, {
+      method: 'POST'
+    })
+  
+    if (addRacerResponse) {
+      const getUpdatedRace = await fetchInstanceWithToken(`/race/${raceId}`, {
+        method: 'GET'
+      })
+
+      if (!getUpdatedRace) return router.back()
+
+      setIsLoading(false)
+
+      return setRace(getUpdatedRace)
+    }
+  }
+
+  const removeProfileFromRace = async (raceId: string, racerProfileId: string) => {
+    setIsLoading(true)
+    const addRacerResponse = await fetchInstanceWithToken(`/track/${trackId}/races/${raceId}/removeRacer/${racerProfileId}`, {
+      method: 'POST'
+    })
+  
+    if (addRacerResponse) {
+      const getUpdatedRace = await fetchInstanceWithToken(`/race/${raceId}`, {
+        method: 'GET'
+      })
+
+      if (!getUpdatedRace) return router.back()
+
+      setIsLoading(false)
+
+      return setRace(getUpdatedRace)
+    }
+  }
 
   if (!race) return <View></View>
 
@@ -152,6 +192,43 @@ export default function RaceIdPage() {
 
         </View>
       : null}
+      
+      {race?.racersProfiles || race?.racersProfiles.length  
+      ? <>
+          {isProfileOnrace 
+          ?   
+            <TouchableOpacity 
+              style={[
+                ButtonsStyle.button,
+                styles.buttonLeftRace
+              ]}
+              onPress={() => removeProfileFromRace(race.id, profileId)}
+            >
+              <Text style={ButtonsStyle.buttonText}>Sair da Corrida</Text>
+            </TouchableOpacity>
+          : 
+            <TouchableOpacity 
+              style={[
+                ButtonsStyle.button,
+                styles.buttonScheduleRequest
+              ]}
+              onPress={() => addProfileToRace(race.id, profileId)}
+            >
+              <Text style={ButtonsStyle.buttonText}>Solicitar Reserva</Text>
+            </TouchableOpacity>
+          }
+        </> 
+      : 
+        <TouchableOpacity 
+          style={[
+            ButtonsStyle.button,
+            styles.buttonEnterRace
+          ]}
+          onPress={() => addProfileToRace(race.id, profileId)}
+        >
+          <Text style={ButtonsStyle.buttonText}>Entrar na Corrida</Text>
+        </TouchableOpacity>
+      }
     </ScrollView>
   )
 }

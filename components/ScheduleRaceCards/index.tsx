@@ -8,13 +8,15 @@ import { fetchInstanceWithToken, getProfileStorage } from "@/utils/fetchInstance
 import { router } from "expo-router"
 
 type ScheduleRaceCardsProps = {
-  race: RacesType
+  race: RacesType,
+  trackId: string
 }
 
 const { colors } = Theme
 
 export const ScheduleRaceCards = ({
-  race
+  race,
+  trackId
 }: ScheduleRaceCardsProps) => {
   return (
     <View style={styles.cardOverflow}>
@@ -41,7 +43,7 @@ export const ScheduleRaceCards = ({
             backgroundColor: colors.primary
           } : { backgroundColor: colors.secondary }
         ]}
-        onPress={() => router.push(`/race/${race.id}`)}
+        onPress={() => router.push(`/track/${trackId}/race/${race.id}`)}
       >
         <Text style={[
           ButtonsStyle.buttonText,
