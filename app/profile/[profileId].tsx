@@ -1,22 +1,20 @@
-import { TextsStyles } from "@/constants/styles/theme-components";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { RacesMock } from "@/@types/mock";
+import { TextsStyles, ButtonsStyle } from "@/constants/styles/theme-components";
+import { Text, View, StyleSheet, ScrollView, Touchable, Pressable } from "react-native";
 import { HeaderProfile } from "@/components/HeaderProfile";
 import { CardRaces, EmptyCardRace } from "@/components/CardRaces";
 import { useCallback, useEffect, useState } from "react";
 import { RacerProfileType } from "@/@types/types";
-import { fetchInstanceWithToken } from "@/utils/fetchInstances";
+import { fetchInstanceWithToken, getProfileStorage } from "@/utils/fetchInstances";
 import { useLocalSearchParams } from "expo-router";
 import { useLoading } from "@/contexts/loadingContext";
 
 export default function ProfilePage() {
   const { profileId } = useLocalSearchParams();
 
-  console.log('profileId', profileId)
-
   const [racer, setRacer] = useState<RacerProfileType | null>(null)
+  const [isMe, setIsMe] = useState(false)
 
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
 
   const getProfile = useCallback(async () => {
     setIsLoading(true)
@@ -24,9 +22,11 @@ export default function ProfilePage() {
       method: 'GET'
     })
 
-    console.log(profileResponse.trackRecords)
-
     if (profileResponse) {
+      const loggedRacerProfileId = await getProfileStorage()
+      const isMe = loggedRacerProfileId === profileId
+
+      setIsMe(isMe)
       setRacer(profileResponse)
       return setIsLoading(false)
     }
@@ -47,36 +47,45 @@ export default function ProfilePage() {
     <ScrollView>
       <View style={styles.container}>
         <HeaderProfile racer={racer}/>
-        {racer.races.length ? 
-          <EmptyCardRace phrase="Você ainda não tem corridas" />
-        : 
+        {!isMe ? 
+          <Pressable style={[ButtonsStyle.button, { marginBottom: 30}]}>
+            <Text style={ButtonsStyle.buttonText}>Adicionar Amigo</Text>
+          </Pressable>
+        : null}
+        {/* <Text style={TextsStyles.p}>Este piloto é seu amigo</Text> */}
         <>
           <Text style={TextsStyles.h1}>Ultimas Corridas:</Text>
           <ScrollView style={styles.cardsGrid} horizontal>
             {!finishedRaces.length ? 
               <EmptyCardRace phrase="Você ainda não tem corridas" />
-            : null}
-            {finishedRaces.map((item, index) => {
-              return (
-                <CardRaces 
-                  key={index}
-                  race={item}
-                />
-              )
-            })}
+            : 
+            <>
+              {finishedRaces.map((item, index) => {
+                return (
+                  <CardRaces 
+                    key={index}
+                    race={item}
+                  />
+                )
+              })}
+            </>
+            }
           </ScrollView>
           <Text style={TextsStyles.h1}>Corridas Marcadas</Text>
           <View style={styles.cardsGrid}>
-            {!finishedRaces.length ? 
+            {!scheduledRaces.length ? 
                 <EmptyCardRace phrase="Nenhuma corrida marcada" />
-            : null}
-            {scheduledRaces.map((item, index) => (
-              <CardRaces 
-                key={index}
-                race={item}
-                withButton
-              />
-            ))}
+            :
+              <>
+                {scheduledRaces.map((item, index) => (
+                  <CardRaces 
+                    key={index}
+                    race={item}
+                    withButton
+                  />
+                ))}
+              </>
+            }
           </View>
           <Text style={TextsStyles.h1}>Melhores Tempos:</Text>
           <View style={styles.cardsGrid}>
@@ -85,7 +94,6 @@ export default function ProfilePage() {
             : null}
           </View>
         </>
-        }
       </View>
     </ScrollView>
   )

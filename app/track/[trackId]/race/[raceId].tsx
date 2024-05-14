@@ -125,7 +125,7 @@ export default function RaceIdPage() {
           {race?.racersProfiles.length ? 
             <>
               {race?.racersProfiles?.map((racer, index) => (
-                <View style={ViewStyles.tableRow} key={racer.id}>
+                <Pressable onPress={() => router.push(`/profile/${racer.id}`)} style={ViewStyles.tableRow} key={racer.id}>
                   <Text style={ViewStyles.tableRowText} >{index + 1} - {racer.name}</Text>
                   <Text style={[
                     ViewStyles.tableRowText,
@@ -133,7 +133,7 @@ export default function RaceIdPage() {
                       textAlign: 'right'
                     }
                   ]} >Reservado</Text>
-                </View>
+                </Pressable>
               ))}
             </>
           : <Text style={TextsStyles.h2}>Sem Pilotos Ainda...</Text>}

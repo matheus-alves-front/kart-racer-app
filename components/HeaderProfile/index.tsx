@@ -8,6 +8,7 @@ import {
 import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
 import { useRouter } from "expo-router"
 import { RacerProfileType } from "@/@types/types"
+import { RacerFriends } from "../RacerFriends/RacerFriends"
 
 const profileImage = require('../../assets/images/profile-icon.png')
 
@@ -26,17 +27,7 @@ export const HeaderProfile = ({
           Pódios: {racer.ranking.rankingPodiums}, Vencidas: {racer.ranking.rankingWins}
         </Text>
       </View>
-      <Pressable 
-        style={[
-          ButtonsStyle.button,
-          styles.button
-        ]}
-      >
-        <Image 
-          source={profileImage}
-          style={styles.buttonImage}
-        />
-      </Pressable>
+      <RacerFriends />
     </View>
   )
 }
@@ -46,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    paddingVertical: 36,
+    paddingVertical: 20,
     paddingTop: 40,
   },
   button: {

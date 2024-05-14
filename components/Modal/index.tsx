@@ -30,9 +30,9 @@ export const ModalUI = ({
       </View>
       <View style={styles.modalView}>
         <View style={[styles.modalContent, isTransparent ? styles.modalContentTransparent : {}]}>
-          {isTransparent ? 
+          {!isTransparent ? 
             <Pressable style={styles.modalCloseButton} onPress={onClose}>
-              <Ionicons size={24} name="close" />
+              <Ionicons color={colors.black} size={24} name="close" />
             </Pressable>
           : null}
           {children}

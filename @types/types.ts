@@ -70,8 +70,10 @@ export interface RacesType {
 
   category?: RaceCategories,
   track: TrackType,
+  trackId: string,
   racerHost: RacerProfileType,
   racersProfiles: RacerProfileType[]
+  racersProfileIds: string[]
 }
 
 export interface TrackRecords {

@@ -32,7 +32,7 @@ export default function LoginPage() {
     if (loginResponse.token) {
       try {
         await AsyncStorage.setItem('token', loginResponse.token)
-        await AsyncStorage.setItem('profile', loginResponse.racerProfile.id)
+        await AsyncStorage.setItem('profile', loginResponse.racerProfileId)
         router.push('/home')
         return setIsLoading(false)
       } catch(err) {
@@ -41,6 +41,8 @@ export default function LoginPage() {
         return setIsLoading(false)
       }
     }
+
+    setIsLoading(false)
   }
 
   return (

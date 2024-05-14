@@ -17,7 +17,6 @@ export const CardRaces = ({
   return (
     <Pressable 
       style={styles.cardOverflow}
-      onPress={() => withButton ? null : router.push(`/race/${race.id}`)}
     >
       <BlurView intensity={20} style={styles.card}>
         <Image
@@ -25,16 +24,13 @@ export const CardRaces = ({
           style={styles.image}
         />
         <View style={styles.textGroup}>
-          <Text style={TextsStyles.h3}>{race.track.name}</Text>
-          <Text style={TextsStyles.p}>
-            Categorias: 
-            {race.track.categories.map((item) => (item.name))}
-          </Text>
-          <Text style={TextsStyles.p}>{race.date}</Text>
+          <Text style={TextsStyles.p}>Data: {race.date}</Text>
+          <Text style={TextsStyles.p}>{race.time}</Text>
+          <Text style={TextsStyles.p}>Pilotos Inscritos: {race.racersProfileIds.length}</Text>
         </View>
         {withButton 
         ? <Pressable 
-            onPress={() => router.push(`/race/${race.id}`)}
+            onPress={() => router.push(`/track/${race.trackId}/race/${race.id}`)}
             style={[
               ButtonsStyle.button,
               styles.button
@@ -86,6 +82,7 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
+    margin: `auto`
   },
   textGroup: {
     flex: 1,

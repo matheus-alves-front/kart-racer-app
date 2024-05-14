@@ -2,15 +2,13 @@ import {
   Text, 
   Pressable, 
   View,
-  Image,
   StyleSheet,
 } from "react-native"
 import { ButtonsStyle } from "../../constants/styles/theme-components"
 import { router } from "expo-router"
-import { getProfileStorage, onLogOut } from "@/utils/fetchInstances"
+import { getProfileStorage } from "@/utils/fetchInstances"
 import { useCallback, useEffect, useState } from "react"
-
-const profileImage = require('../../assets/images/profile-icon.png')
+import { RacerFriends } from "../RacerFriends/RacerFriends"
 
 export const HeaderHome = () => {
   const [profileIdState, setProfileIdState] = useState('')
@@ -28,27 +26,14 @@ export const HeaderHome = () => {
       <Pressable 
         style={ButtonsStyle.button}
         onPress={
-          () => {
-            console.log('clicou')
-            router.push(`/profile/${profileIdState}`)
-          }
+          () => router.push(`/profile/${profileIdState}`)
         }
       >
         <Text style={ButtonsStyle.buttonText}>
-          Suas Corridas: 12
+          Ver Perfil
         </Text>
       </Pressable>
-      <Pressable 
-        onPress={onLogOut}
-        style={[
-          ButtonsStyle.button,
-          styles.button
-        ]}
-      >
-        <Image 
-          source={profileImage}
-        />
-      </Pressable>
+      <RacerFriends />
     </View>
   )
 }
