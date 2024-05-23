@@ -40,7 +40,7 @@ export async function fetchInstanceWithToken(
     const fetchRequest = await fetch(`${API_URL}${route}`, {
       ...params,
       headers: {
-        // "Content-Type": 'application/json',
+        "Content-Type": 'application/json',
         "Authorization": String(authToken),
         ...params.headers
       },
@@ -81,7 +81,10 @@ export async function onLogOut() {
 export const onConnectAuth = async () => {
   const authToken = await getTokenStorage()
 
-  if (!authToken) return router.push('/')
+  if (!authToken) {
+    onLogOut()
+    return router.push('/')
+  }
 }
 
 export const onConnectLogin = async () => {

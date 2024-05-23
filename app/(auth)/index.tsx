@@ -29,10 +29,13 @@ export default function LoginPage() {
       })
     })
 
+    console.log('loginResponse', loginResponse.racerProfile.id)
+    console.log('loginResponse', loginResponse.token)
+
     if (loginResponse.token) {
       try {
         await AsyncStorage.setItem('token', loginResponse.token)
-        await AsyncStorage.setItem('profile', loginResponse.racerProfileId)
+        await AsyncStorage.setItem('profile', loginResponse.racerProfile.id)
         router.push('/home')
         return setIsLoading(false)
       } catch(err) {

@@ -1,16 +1,11 @@
 import { 
   Text, 
-  Pressable, 
   View,
-  Image,
   StyleSheet,
 } from "react-native"
-import { ButtonsStyle, TextsStyles } from "../../constants/styles/theme-components"
-import { useRouter } from "expo-router"
+import { TextsStyles } from "../../constants/styles/theme-components"
 import { RacerProfileType } from "@/@types/types"
-import { RacerFriends } from "../RacerFriends/RacerFriends"
-
-const profileImage = require('../../assets/images/profile-icon.png')
+import { RacerMenu } from "../RacerMenu/RacerMenu"
 
 export const HeaderProfile = ({
   racer
@@ -27,7 +22,7 @@ export const HeaderProfile = ({
           Pódios: {racer.ranking.rankingPodiums}, Vencidas: {racer.ranking.rankingWins}
         </Text>
       </View>
-      <RacerFriends />
+      <RacerMenu profileId={racer.id} />
     </View>
   )
 }

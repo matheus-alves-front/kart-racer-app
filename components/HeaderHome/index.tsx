@@ -8,7 +8,7 @@ import { ButtonsStyle } from "../../constants/styles/theme-components"
 import { router } from "expo-router"
 import { getProfileStorage } from "@/utils/fetchInstances"
 import { useCallback, useEffect, useState } from "react"
-import { RacerFriends } from "../RacerFriends/RacerFriends"
+import { RacerMenu } from "../RacerMenu/RacerMenu"
 
 export const HeaderHome = () => {
   const [profileIdState, setProfileIdState] = useState('')
@@ -21,6 +21,7 @@ export const HeaderHome = () => {
   useEffect(() => {
     getProfileId()
   }, [])
+  
   return (
     <View style={styles.header} >
       <Pressable 
@@ -33,7 +34,7 @@ export const HeaderHome = () => {
           Ver Perfil
         </Text>
       </Pressable>
-      <RacerFriends />
+      <RacerMenu profileId={profileIdState} />
     </View>
   )
 }

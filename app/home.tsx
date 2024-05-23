@@ -3,10 +3,9 @@ import { CardTrack } from "@/components/CardTrack";
 import { TextsStyles } from "@/constants/styles/theme-components";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { HeaderHome } from "@/components/HeaderHome";
-import { fetchInstanceWithToken, onConnectAuth } from "@/utils/fetchInstances";
+import { fetchInstanceWithToken, onConnectAuth, onLogOut } from "@/utils/fetchInstances";
 import { useCallback, useEffect, useState } from "react";
 import { TrackType } from "@/@types/types";
-import { router } from "expo-router";
 import { useLoading } from "@/contexts/loadingContext";
 
 export default function HomePage() {
@@ -26,7 +25,8 @@ export default function HomePage() {
       return setIsLoading(false)
     }
 
-    router.push('/')
+    onLogOut()
+
     return setIsLoading(false)
   }, [])
 
@@ -34,9 +34,11 @@ export default function HomePage() {
     getTracks()
   }, [])
 
-  if (!tracks) return (
-    <View><Text>""</Text></View>
-  )
+  if (!tracks) {
+    return (
+      <View><Text>""</Text></View>
+    )
+  }
 
   return (
     <ScrollView>
