@@ -1,5 +1,5 @@
 import { TextsStyles, ButtonsStyle } from "@/constants/styles/theme-components";
-import { Text, View, StyleSheet, ScrollView, Touchable, Pressable } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { HeaderProfile } from "@/components/HeaderProfile";
 import { CardRaces, EmptyCardRace } from "@/components/CardRaces";
 import { useCallback, useEffect, useState } from "react";
@@ -7,7 +7,9 @@ import { RacerProfileType } from "@/@types/types";
 import { fetchInstanceWithToken, getProfileStorage } from "@/utils/fetchInstances";
 import { useLocalSearchParams } from "expo-router";
 import { useLoading } from "@/contexts/loadingContext";
-import { AllFriends } from "@/components/AllFriends/AllFriends";
+import { AllFriends, AllFriendsRequests } from "@/components/AllFriends/AllFriends";
+import { AddFriendButton } from "@/components/AddFriendButton/AddFriendButton";
+import { useLoggedUser } from "@/contexts/loggedUser";
 
 type isMeProfileSections = 'races' | 'friends' | 'invites' | 'shared'
 
@@ -36,7 +38,9 @@ const Tabs = [
 export default function ProfilePage() {
   const { profileId } = useLocalSearchParams();
   const { setIsLoading } = useLoading()
+  const { updateRacer, loggedRacer, setLoggedRacer, racerFriends, racerFriendsRequests} = useLoggedUser()
 
+  const [loggedId, setLoggedId] = useState<string | null>('')
   const [racer, setRacer] = useState<RacerProfileType | null>(null)
   const [isMe, setIsMe] = useState(false)
   
@@ -48,6 +52,7 @@ export default function ProfilePage() {
     
     if (profileResponse) {
       const loggedRacerProfileId = await getProfileStorage()
+      setLoggedId(loggedRacerProfileId)
       const isMe = loggedRacerProfileId === profileId
       
       setIsMe(isMe)
@@ -62,21 +67,31 @@ export default function ProfilePage() {
     getProfile()
   }, [])
 
+  useEffect(() => {
+    if (isMe) {
+      if (racer) {
+        setLoggedRacer(racer)
+
+        return
+      }
+      updateRacer()
+    }
+  }, [isMe, racer, loggedRacer])
+
   if (!racer) return <View></View>
 
   const finishedRaces = racer.races.filter((race) => race.isFinished)
   const scheduledRaces = racer.races.filter((race) => race.isScheduled)
-  const finishedHostedRaces = racer.hostedRaces.filter((race) => race.isFinished)
-  const scheduledHostedRaces = racer.hostedRaces.filter((race) => race.isScheduled)
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <HeaderProfile racer={racer}/>
-        {!isMe ? 
-          <Pressable style={[ButtonsStyle.button, { marginBottom: 30}]}>
-            <Text style={ButtonsStyle.buttonText}>Adicionar Amigo</Text>
-          </Pressable>
+        {!isMe && loggedId ? 
+          <AddFriendButton  
+            loggedId={loggedId}
+            racer={racer}
+          />
         : 
         <View style={ButtonsStyle.tabsGroup}>
           {Tabs.map((tab) => (
@@ -94,9 +109,13 @@ export default function ProfilePage() {
         </View>
         }
         {/* <Text style={TextsStyles.p}>Este piloto é seu amigo</Text> */}
-        {racerSection === 'friends' ? 
-          <AllFriends />
-        : null}
+        {racerSection  === 'friends' 
+        ? <AllFriends />
+        :null
+        }
+        {racerSection === 'invites' && 
+          <AllFriendsRequests />
+        }
         {racerSection === 'races' ? 
           <>
             <Text style={TextsStyles.h1}>Ultimas Corridas:</Text>

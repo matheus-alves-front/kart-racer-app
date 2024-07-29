@@ -1,5 +1,6 @@
 import { Loader } from "@/components/Loader";
 import { LoadingContextProvider } from "@/contexts/loadingContext";
+import { LoggedUserContextProvider } from "@/contexts/loggedUser";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import { Text, ImageBackground, StyleSheet, View } from "react-native";
@@ -25,21 +26,23 @@ export default function LayoutRoot() {
 
   return (
     <LoadingContextProvider>
-      <ImageBackground 
-        source={backgroundImage}
-        style={styles.bgImage}
-      >  
-        <SafeAreaProvider 
-          style={{
-            backgroundColor: 'transparent',
-            overflow: 'visible',
-            zIndex: 1
-          }}
-        > 
-          <Loader />
-          <Slot />
-        </SafeAreaProvider>
-    </ImageBackground>
+      <LoggedUserContextProvider>
+        <ImageBackground 
+          source={backgroundImage}
+          style={styles.bgImage}
+        >  
+          <SafeAreaProvider 
+            style={{
+              backgroundColor: 'transparent',
+              overflow: 'visible',
+              zIndex: 1
+            }}
+          > 
+            <Loader />
+            <Slot />
+          </SafeAreaProvider>
+        </ImageBackground>
+      </LoggedUserContextProvider>
     </LoadingContextProvider>
   )
 }

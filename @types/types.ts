@@ -76,6 +76,30 @@ export interface RacesType {
   racersProfileIds: string[]
 }
 
+export interface ChatType {
+  id: string
+  
+  senderId: string
+  message: string
+
+  createdAt: string
+
+  chatWithFriendshipId: string
+}
+
+export interface SocialFriendshipType {
+  id: string
+  
+  chat: ChatType[]
+  accepted: boolean
+
+  racerFriendId: string
+  racerFriend: RacerProfileType
+
+  racerId: string
+  racer: RacerProfileType
+}
+
 export interface TrackRecords {
   id: string,
   time: number,

@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Theme } from "@/constants/Colors"
 import { useRouter } from "expo-router"
 import { onLogOut } from "@/utils/fetchInstances"
+import { useLoggedUser } from "@/contexts/loggedUser"
 const { colors } = Theme 
 
 const profileImage = require('../../assets/images/profile-icon.png')
@@ -14,6 +15,7 @@ export const RacerMenu = ({
 }: {
   profileId: string
 }) => {
+  const {loggedRacer} = useLoggedUser()
   const router = useRouter()
   const [isFriendsModal, setIsFriendsModal] = useState(false)
   
@@ -40,13 +42,16 @@ export const RacerMenu = ({
           <ScrollView>
             <View style={{gap: 10}}>
               <Pressable style={ButtonsStyle.button}
-                onPress={() => router.push(`/profile/${profileId}`)}
+                onPress={() => router.push(`/profile/${loggedRacer?.id}`)}
               >
                 <Text style={ButtonsStyle.buttonText}>Ver Perfil</Text>
               </Pressable>
-              <Pressable style={[ButtonsStyle.button, {
-              }]}>
-                <Text style={ButtonsStyle.buttonText}>Editar Perfil</Text>
+              <Pressable 
+                style={[ButtonsStyle.button, {
+                }]}
+                onPress={() => router.push('home')}
+              >
+                <Text style={ButtonsStyle.buttonText}>Voltar Início</Text>
               </Pressable>
               <Pressable style={[ButtonsStyle.button, {
                 backgroundColor: colors.gray

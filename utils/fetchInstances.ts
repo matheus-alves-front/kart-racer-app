@@ -19,7 +19,8 @@ export async function fetchInstance(
     })
 
     if (!fetchRequest.ok) return {
-      error: 'remote not ok'
+      error: 'remote not ok',
+      request: fetchRequest
     }
 
     const fetchJson = await fetchRequest.json()
@@ -52,7 +53,7 @@ export async function fetchInstanceWithToken(
 
     return fetchJson
   } catch(error) {
-    throw new Error(JSON.stringify(error));
+    console.log('FETCH INSTANCE ERROR', error)
   }
 }
 

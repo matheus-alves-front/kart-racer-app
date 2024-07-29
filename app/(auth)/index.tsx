@@ -1,6 +1,7 @@
 
 import { ButtonsStyle, InputStyles, TextsStyles } from "@/constants/styles/theme-components";
 import { useLoading } from "@/contexts/loadingContext";
+import { useLoggedUser } from "@/contexts/loggedUser";
 import { fetchInstance, onConnectLogin } from "@/utils/fetchInstances";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {  } from "expo-image";
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [isError, setIsError] = useState(false)
 
   const {setIsLoading} = useLoading()
+  const {updateRacer} = useLoggedUser()
 
   const loginSubmit = async () => {
     setIsLoading(true)
@@ -29,23 +31,21 @@ export default function LoginPage() {
       })
     })
 
-    console.log('loginResponse', loginResponse.racerProfile.id)
-    console.log('loginResponse', loginResponse.token)
-
     if (loginResponse.token) {
       try {
         await AsyncStorage.setItem('token', loginResponse.token)
-        await AsyncStorage.setItem('profile', loginResponse.racerProfile.id)
+        await AsyncStorage.setItem('profile', loginResponse.racerProfile.id ?? loginResponse.racerProfileId)
+        updateRacer()
         router.push('/home')
-        return setIsLoading(false)
+        setIsLoading(false)
       } catch(err) {
         console.log(err)
         setIsError(true)
-        return setIsLoading(false)
+        setIsLoading(false)
       }
+    } else {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   return (
